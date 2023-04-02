@@ -28,3 +28,8 @@ PrincipalOauth2UserService 에서 PrincipalDetails로 리턴을 하면
 
 Athentication 에 PrincipalDetails가 저장된다.
 
+---
+
+OAuth2-Client 는 provider 를 제공한다. (구글, 페이스북, 트위터 ... 등)
+
+## 스프링부트 기본 로그인 + OAuth2.0 로그인 = 통합해서 구현
