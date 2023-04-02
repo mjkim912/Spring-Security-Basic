@@ -1,15 +1,18 @@
 package com.cos.security1.controller;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cos.security1.config.auth.PrincipalDetails;
 import com.cos.security1.model.User;
 import com.cos.security1.repository.UserRepository;
 
@@ -22,6 +25,25 @@ public class IndexController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	
+	@GetMapping("/test/login")
+	@ResponseBody
+	public String loginTest(@AuthenticationPrincipal PrincipalDetails principal) {	// DI(의존성 주입)
+		System.err.println("Principal : " + principal);
+		System.err.println("Principal : " + principal.getUser().getProvider());
+		
+		return "세션정보확인하기";
+	}
+	
+	@GetMapping("/test/oauth/login")
+	@ResponseBody
+	public String loginOAuthTest(@AuthenticationPrincipal OAuth2User oauth2User) {	// DI(의존성 주입)
+		System.err.println("test oauth login ============ ");
+		System.err.println("Principal : " + oauth2User.getAttributes());
+		
+		return "OAuth 세션정보확인하기";
+	}
+	
 	@GetMapping({"","/"})
 	public String index() {
 		// 머스테치 기본폴더 src/main/resources/
@@ -29,9 +51,15 @@ public class IndexController {
 		return "index";
 	}
 	
+	
+	// OAuth 로그인을 해도 PrincipalDetails
+	// 일반로그인을 해도 PrincipalDetails 로 받는다.
+	// 위의 loginTest, loginOAuthTest 처럼 분기 할 필요가 없다.
 	@ResponseBody
 	@GetMapping("/user")
-	public String user() {
+	public String user(@AuthenticationPrincipal PrincipalDetails principal) {
+		System.err.println("PrincipalDetails : " + principal.getUser());
+		
 		return "user";
 	}
 	

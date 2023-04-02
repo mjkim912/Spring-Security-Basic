@@ -1,6 +1,7 @@
-package com.cos.security1.auth;
+package com.cos.security1.config.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +24,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 	// 시큐리티 session => Athentication => UserDetails
 	// 리턴 값이 Athentication(UserDetails) 이렇게 내부로 들어간다.
 	// 그리고 session 내부에는 Athentication(UserDetails)가 들어간다.
+	// 함수 종료 시 @AuthenticationPrincipal 어노테이션이 만들어진다.
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// 회원가입 폼의 name="username" 으로 적어야 파라미터로 넘어온다.
