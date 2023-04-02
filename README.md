@@ -18,3 +18,13 @@ Authentication 안에 들어갈 수 있는 타입은 두 가지
 그래서 UserDetails와 OAuth2User가 상속받는 클래스를 만들어 파라미터로 정보를 받는다.
 
 --> PrincipalDetails 클래스
+
+
+---
+
+PrincipalDetailsService 에서 PrincipalDetails로 리턴을 하고
+
+PrincipalOauth2UserService 에서 PrincipalDetails로 리턴을 하면
+
+Athentication 에 PrincipalDetails가 저장된다.
+
