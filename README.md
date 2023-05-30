@@ -42,4 +42,15 @@ OAuth2-Client 는 provider 를 제공한다. (구글, 페이스북, 트위터 ..
 
 JWT = Json Web Token
 
+xxxxx.yyyyy.zzzzz
+header.payload.signature
+
+header : HS256
+payload : { username : ssar }
+signature : header + payload + 서버 키값(코스)
+
+각각을 암호환한다.
+
+
+
 
